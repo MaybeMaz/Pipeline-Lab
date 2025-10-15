@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEO Cyberpunk Hub</title>
+    <style>
+        /* Import Minecraft Enchantment Font (replace with actual font path) */
+        @font-face {
+            font-family: 'MinecraftEnchantment';
+            src: url('path/to/MinecraftEnchantment.ttf') format('truetype');
+        }
+
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background: url('https://example.com/cyberpunk-city.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #e0e0e0;
+            overflow-x: hidden;
+        }
+
+        /* Neon Glow Effect */
+        .neon-text {
+            color: #00ffcc;
+            text-shadow: 
+                0 0 5px #00ffcc,
+                0 0 10px #00ffcc,
+                0 0 20px #ff00ff,
+                0 0 40px #ff00ff;
+        }
+
+        /* Minecraft Enchantment Text */
+        .enchant-text {
+            font-family: 'MinecraftEnchantment', sans-serif;
+            font-size: 1.5em;
+            color: #a100ff;
+            text-shadow: 0 0 10px #a100ff, 0 0 20px #a100ff;
+            letter-spacing: 2px;
+        }
+
+        /* Glitch Animation */
+        @keyframes glitch {
+            0% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+            100% { transform: translate(0); }
+        }
+
+        .glitch {
+            animation: glitch 0.5s infinite;
+        }
+
+        /* Navigation Bar */
+        nav {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 1rem;
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: #00ffcc;
+            text-decoration: none;
+            font-size: 1.2em;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #ff00ff;
+            text-shadow: 0 0 10px #ff00ff;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .hero h1 {
+            font-size: 4em;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.5em;
+            max-width: 600px;
+        }
+
+        /* About Section */
+        .about {
+            padding: 4rem 2rem;
+            background: rgba(0, 0, 0, 0.7);
+            text-align: center;
+        }
+
+        .about h2 {
+            font-size: 2.5em;
+            margin-bottom: 1rem;
+        }
+
+        .about p {
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(0, 0, 0, 0.9);
+            padding: 1rem;
+            text-align: center;
+        }
+
+        footer p {
+            font-size: 1em;
+            color: #00ffcc;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5em;
+            }
+
+            .hero p {
+                font-size: 1.2em;
+            }
+
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .about h2 {
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav>
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <h1 class="neon-text glitch">NEO Cyberpunk Hub</h1>
+        <p class="enchant-text">Welcome to the Future of the Digital Realm</p>
+        <p>Explore the neon-lit streets of a dystopian world, powered by cutting-edge tech.</p>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <h2 class="neon-text">About the Hub</h2>
+        <p class="enchant-text">Encrypted Data Streams</p>
+        <p>
+            The NEO Cyberpunk Hub is your gateway to a futuristic digital universe. Dive into a world where technology and rebellion collide, with interfaces inspired by the raw energy of cyberpunk culture and the cryptic allure of Minecraft's enchantment script.
+        </p>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p class="enchant-text">NEO Cyberpunk Hub &copy; 2025</p>
+    </footer>
+</body>
+</html>
