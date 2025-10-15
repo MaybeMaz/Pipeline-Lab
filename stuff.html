@@ -1,153 +1,390 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>CyberBlock Emporium</title>
-  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-  <style>
-    /* Reset & Base */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>NEO Cyberpunk Minecraft Block Shop</title>
+<style>
+  @font-face {
+    font-family: 'Minecraftia';
+    src: url('https://cdn.jsdelivr.net/gh/arnellebalane/minecraft-font/Minecraftia.ttf') format('truetype');
+  }
 
-    body {
-      font-family: 'Press Start 2P', cursive;
-      background-color: #0a0a0a;
-      color: #0ff;
-      background-image: radial-gradient(circle at top left, #111, #000);
-      overflow-x: hidden;
-    }
+  /* Reset & base */
+  * {
+    margin: 0; padding: 0; box-sizing: border-box;
+  }
 
-    a {
-      color: #ff00ff;
-      text-decoration: none;
-    }
+  body {
+    background: linear-gradient(135deg, #0a001f 0%, #1b003d 100%);
+    color: #0ff;
+    font-family: 'Minecraftia', monospace, monospace;
+    overflow-x: hidden;
+    user-select: none;
+  }
 
-    /* Enchanted Text Effect */
-    .enchanted {
-      background: linear-gradient(90deg, #0ff, #f0f, #0ff);
-      background-size: 200% 200%;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      animation: shimmer 3s linear infinite;
-    }
+  /* Enchantment text background overlay */
+  body::before {
+    content: "§m§kENCHANTED §lMINECRAFT §r§oBLOCKS §nFOR SALE §a§b§cNEO CYBERPUNK ";
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    font-size: 8vw;
+    color: #00ffff15;
+    white-space: nowrap;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 0;
+    animation: marquee 30s linear infinite;
+  }
 
-    @keyframes shimmer {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
+  @keyframes marquee {
+    0% { transform: translateX(100%); }
+    100% { transform: translateX(-100%); }
+  }
 
-    /* Cyberpunk Glow */
-    .glow {
-      text-shadow: 0 0 5px #0ff, 0 0 10px #0ff, 0 0 20px #0ff;
-    }
+  header {
+    text-align: center;
+    padding: 1rem;
+    border-bottom: 2px solid #0ff;
+    position: relative;
+    z-index: 1;
+  }
+  header h1 {
+    font-size: 3rem;
+    text-shadow:
+      0 0 8px #0ff,
+      0 0 20px #0ff,
+      0 0 30px #0ff;
+  }
 
-    /* Layout */
-    header {
-      padding: 3rem 1rem;
-      text-align: center;
-      background-color: rgba(0, 255, 255, 0.05);
-      border-bottom: 2px solid #0ff;
-    }
+  main {
+    max-width: 1000px;
+    margin: 2rem auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+  }
 
-    header h1 {
-      font-size: 2rem;
-    }
+  .block-card {
+    background: #01111f88;
+    border: 1px solid #00ffff99;
+    border-radius: 12px;
+    padding: 1rem;
+    width: 220px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow:
+      0 0 6px #00ffffcc,
+      inset 0 0 10px #00ffffaa;
+    cursor: default;
+  }
 
-    .hero {
-      padding: 2rem;
-      text-align: center;
-    }
+  .block-card img {
+    width: 128px;
+    height: 128px;
+    image-rendering: pixelated;
+    filter: drop-shadow(0 0 4px #00ffffaa);
+  }
 
-    .hero h2 {
-      font-size: 1.2rem;
-      color: #f0f;
-    }
+  .enchanted {
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin-top: 0.5rem;
+    color: #0ff;
+    position: relative;
+    user-select: none;
+  }
 
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 2rem;
-      padding: 2rem;
-    }
+  /* Enchanted glow & shimmer */
+  .glow {
+    text-shadow:
+      0 0 6px #00ffff,
+      0 0 12px #00ffffbb,
+      0 0 18px #00ffffcc,
+      0 0 24px #00ffffee;
+    animation: shimmer 3s infinite linear;
+  }
 
-    .block-card {
-      background-color: rgba(0, 0, 0, 0.6);
-      border: 2px solid #0ff;
-      border-radius: 10px;
-      padding: 1rem;
-      text-align: center;
-      box-shadow: 0 0 10px #0ff;
-      transition: transform 0.2s ease;
+  @keyframes shimmer {
+    0% {
+      background-position: -200% 0;
     }
+    100% {
+      background-position: 200% 0;
+    }
+  }
 
-    .block-card:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 20px #f0f;
-    }
+  .price {
+    font-size: 1rem;
+    margin: 0.3rem 0 1rem;
+    letter-spacing: 0.1em;
+  }
 
-    .block-card img {
-      width: 100px;
-      height: 100px;
-      image-rendering: pixelated;
-      margin-bottom: 1rem;
-    }
+  button.add-to-cart {
+    background: #0ff;
+    border: none;
+    padding: 0.5rem 1rem;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    border-radius: 8px;
+    cursor: pointer;
+    color: #000;
+    user-select: none;
+    transition: background 0.3s ease;
+  }
 
-    .footer {
-      text-align: center;
-      padding: 1rem;
-      border-top: 1px solid #0ff;
-      background-color: rgba(0, 0, 0, 0.3);
-      margin-top: 2rem;
-      font-size: 0.8rem;
-    }
-  </style>
+  button.add-to-cart:hover {
+    background: #33ffff;
+  }
+
+  /* Shopping cart sidebar */
+  #cart {
+    position: fixed;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    width: 320px;
+    max-height: 80vh;
+    background: #002233cc;
+    backdrop-filter: blur(12px);
+    border-left: 3px solid #00ffff;
+    padding: 1rem;
+    overflow-y: auto;
+    color: #0ff;
+    font-family: 'Minecraftia', monospace;
+    z-index: 10;
+    box-shadow:
+      -3px 0 10px #00ffffaa;
+  }
+
+  #cart h2 {
+    text-align: center;
+    margin-bottom: 1rem;
+    font-size: 2rem;
+    text-shadow: 0 0 10px #00ffffdd;
+  }
+
+  #cart-items {
+    list-style: none;
+    margin-bottom: 1rem;
+  }
+
+  #cart-items li {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #00ffff55;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  #cart-total {
+    font-size: 1.3rem;
+    font-weight: bold;
+    text-align: right;
+    margin-bottom: 1rem;
+  }
+
+  #clear-cart {
+    background: #ff0066;
+    border: none;
+    color: #fff;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    letter-spacing: 0.07em;
+    width: 100%;
+  }
+
+  #clear-cart:hover {
+    background: #ff3399;
+  }
+
+  /* Enchantment particles canvas */
+  #particles {
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Audio controls hidden but present */
+  audio {
+    display: none;
+  }
+</style>
 </head>
 <body>
 
-  <header>
-    <h1 class="enchanted glow">⚡ CYBERBLOCK EMPORIUM ⚡</h1>
-    <p class="enchanted">Selling the finest pixelated blocks in the NeonNet</p>
-  </header>
+<header>
+  <h1>NEO Cyberpunk Minecraft Block Shop</h1>
+</header>
 
-  <section class="hero">
-    <h2 class="enchanted">✨ Enchanted Minecraft Blocks. Delivered in Glitched Style. ✨</h2>
-  </section>
+<main>
+  <div class="block-card" data-name="Diamond Block" data-price="20">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIwAAACMCAYAAABlyX6ZAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAPYQAAD2EBqD+naQAAABl0RVh0U29mdHdhcmUAUGFpbnQuTkVUIHYzLjUuMTEQvZAAAARzSURBVHic7dHBCcIwEAbgbz/zkJCeCwMUu0XhMdDaZJSiEs6Lv3+pQ4mSzKf35hQCBvLpJyH+zt0ALMKlUgW4A3y5dJcBiDfrl1JAKPnwDQHBZhR9NsSc5iA8d1gEgJ1BpcAF3y4BGXoAdPQRgt2wA3tPhnDd6OkkLwYBCbAA3pkAF27hIN12HxAsFjK7iYD3MFzOqhv0CN1B9RY94A27b7sgJs9kbcglBzrJuR7KpHZlA37cNeQTq4U0O3dSLAjd4yR3kaqw5vgJcGgXgDRzjQIYjBoOcOSnCHOKTBpw4wYTzoMgjBhpwoYeUjjJc4cYTU0HKFgDw+aAgCIzxPfpATxF+pPn9A/zp4EWxi9/XSmAAAAAElFTkSuQmCC" alt="Diamond Block" />
+    <p class="enchanted glow">Diamond Block</p>
+    <p class="price">Price: 20Ξ</p>
+    <button class="add-to-cart">Add to Cart</button>
+  </div>
 
-  <section class="grid">
-    <!-- Example Product Cards -->
-    <div class="block-card">
-      <img src="https://minecraft.wiki/w/File:Block_of_Diamond_JE5_BE3.png" alt="Diamond Block">
-      <p class="enchanted glow">Diamond Block</p>
-      <p>Price: 20Ξ</p>
-    </div>
+  <div class="block-card" data-name="Netherite Core" data-price="50">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIwAAACMCAYAAABlyX6ZAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAPYQAAD2EBqD+naQAAABl0RVh0U29mdHdhcmUAUGFpbnQuTkVUIHYzLjUuMTEQvZAAAARzSURBVHic7dHBCcIwEAbgbz/zkJCeCwMUu0XhMdDaZJSiEs6Lv3+pQ4mSzKf35hQCBvLpJyH+zt0ALMKlUgW4A3y5dJcBiDfrl1JAKPnwDQHBZhR9NsSc5iA8d1gEgJ1BpcAF3y4BGXoAdPQRgt2wA3tPhnDd6OkkLwYBCbAA3pkAF27hIN12HxAsFjK7iYD3MFzOqhv0CN1B9RY94A27b7sgJs9kbcglBzrJuR7KpHZlA37cNeQTq4U0O3dSLAjd4yR3kaqw5vgJcGgXgDRzjQIYjBoOcOSnCHOKTBpw4wYTzoMgjBhpwoYeUjjJc4cYTU0HKFgDw+aAgCIzxPfpATxF+pPn9A/zp4EWxi9/XSmAAAAAElFTkSuQmCC" alt="Netherite Core" />
+    <p class="enchanted glow">Netherite Core</p>
+    <p class="price">Price: 50Ξ</p>
+    <button class="add-to-cart">Add to Cart</button>
+  </div>
 
-    <div class="block-card">
-      <img src="https://minecraft.wiki/w/File:Block_of_Netherite_JE1_BE1.png" alt="Netherite Block">
-      <p class="enchanted glow">Netherite Core</p>
-      <p>Price: 50Ξ</p>
-    </div>
+  <div class="block-card" data-name="Redstone Nexus" data-price="15">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIwAAACMCAYAAABlyX6ZAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAPYQAAD2EBqD+naQAAABl0RVh0U29mdHdhcmUAUGFpbnQuTkVUIHYzLjUuMTEQvZAAAARzSURBVHic7dHBCcIwEAbgbz/zkJCeCwMUu0XhMdDaZJSiEs6Lv3+pQ4mSzKf35hQCBvLpJyH+zt0ALMKlUgW4A3y5dJcBiDfrl1JAKPnwDQHBZhR9NsSc5iA8d1gEgJ1BpcAF3y4BGXoAdPQRgt2wA3tPhnDd6OkkLwYBCbAA3pkAF27hIN12HxAsFjK7iYD3MFzOqhv0CN1B9RY94A27b7sgJs9kbcglBzrJuR7KpHZlA37cNeQTq4U0O3dSLAjd4yR3kaqw5vgJcGgXgDRzjQIYjBoOcOSnCHOKTBpw4wYTzoMgjBhpwoYeUjjJc4cYTU0HKFgDw+aAgCIzxPfpATxF+pPn9A/zp4EWxi9/XSmAAAAAElFTkSuQmCC" alt="Redstone Nexus" />
+    <p class="enchanted glow">Redstone Nexus</p>
+    <p class="price">Price: 15Ξ</p>
+    <button class="add-to-cart">Add to Cart</button>
+  </div>
 
-    <div class="block-card">
-      <img src="https://minecraft.wiki/w/File:Block_of_Redstone_JE2_BE2.png" alt="Redstone Block">
-      <p class="enchanted glow">Redstone Nexus</p>
-      <p>Price: 15Ξ</p>
-    </div>
+  <div class="block-card" data-name="Emerald Catalyst" data-price="18">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIwAAACMCAYAAABlyX6ZAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAPYQAAD2EBqD+naQAAABl0RVh0U29mdHdhcmUAUGFpbnQuTkVUIHYzLjUuMTEQvZAAAARzSURBVHic7dHBCcIwEAbgbz/zkJCeCwMUu0XhMdDaZJSiEs6Lv3+pQ4mSzKf35hQCBvLpJyH+zt0ALMKlUgW4A3y5dJcBiDfrl1JAKPnwDQHBZhR9NsSc5iA8d1gEgJ1BpcAF3y4BGXoAdPQRgt2wA3tPhnDd6OkkLwYBCbAA3pkAF27hIN12HxAsFjK7iYD3MFzOqhv0CN1B9RY94A27b7sgJs9kbcglBzrJuR7KpHZlA37cNeQTq4U0O3dSLAjd4yR3kaqw5vgJcGgXgDRzjQIYjBoOcOSnCHOKTBpw4wYTzoMgjBhpwoYeUjjJc4cYTU0HKFgDw+aAgCIzxPfpATxF+pPn9A/zp4EWxi9/XSmAAAAAElFTkSuQmCC" alt="Emerald Catalyst" />
+    <p class="enchanted glow">Emerald Catalyst</p>
+    <p class="price">Price: 18Ξ</p>
+    <button class="add-to-cart">Add to Cart</button>
+  </div>
+</main>
 
-    <div class="block-card">
-      <img src="https://minecraft.wiki/images/Block_of_Emerald_JE4_BE3.png?d5a3c&format=original" alt="Emerald Block">
-      <p class="enchanted glow">Emerald Catalyst</p>
-      <p>Price: 18Ξ</p>
-    </div>
-  </section>
+<!-- Shopping cart sidebar -->
+<aside id="cart">
+  <h2>Shopping Cart</h2>
+  <ul id="cart-items"></ul>
+  <div id="cart-total">Total: 0Ξ</div>
+  <button id="clear-cart">Clear Cart</button>
+</aside>
 
-  <footer class="footer enchanted">
-    ⛓️ CyberBlock Emporium © 2025 – All Rights Reserved in The End ⛓️
-  </footer>
+<!-- Enchantment particles canvas -->
+<canvas id="particles"></canvas>
+
+<!-- Dark synthwave music -->
+<audio id="bg-music" autoplay muted loop>
+  <source src="https://cdn.pixabay.com/download/audio/2022/03/24/audio_0c9e43325e.mp3?filename=retro-wave-11252.mp3" type="audio/mpeg">
+  Your browser does not support the audio element.
+</audio>
+
+<script>
+  // Shopping Cart Logic
+  const cart = [];
+  const cartItemsEl = document.getElementById('cart-items');
+  const cartTotalEl = document.getElementById('cart-total');
+  const clearCartBtn = document.getElementById('clear-cart');
+  const addButtons = document.querySelectorAll('.add-to-cart');
+
+  function updateCartDisplay() {
+    cartItemsEl.innerHTML = '';
+    let total = 0;
+    cart.forEach(item => {
+      const li = document.createElement('li');
+      li.textContent = `${item.name} x${item.qty}`;
+      const priceSpan = document.createElement('span');
+      priceSpan.textContent = `${item.price * item.qty}Ξ`;
+      li.appendChild(priceSpan);
+      cartItemsEl.appendChild(li);
+      total += item.price * item.qty;
+    });
+    cartTotalEl.textContent = `Total: ${total}Ξ`;
+  }
+
+  function addToCart(name, price) {
+    const found = cart.find(i => i.name === name);
+    if (found) {
+      found.qty++;
+    } else {
+      cart.push({ name, price, qty: 1 });
+    }
+    updateCartDisplay();
+  }
+
+  addButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const card = btn.closest('.block-card');
+      const name = card.dataset.name;
+      const price = parseInt(card.dataset.price);
+      addToCart(name, price);
+    });
+  });
+
+  clearCartBtn.addEventListener('click', () => {
+    cart.length = 0;
+    updateCartDisplay();
+  });
+
+  updateCartDisplay();
+
+  // Enchantment Particles
+
+  const canvas = document.getElementById('particles');
+  const ctx = canvas.getContext('2d');
+  let width, height;
+  let particlesArray = [];
+
+  function resize() {
+    width = window.innerWidth;
+    height = window.innerHeight;
+    canvas.width = width;
+    canvas.height = height;
+  }
+  window.addEventListener('resize', resize);
+  resize();
+
+  class Particle {
+    constructor() {
+      this.x = Math.random() * width;
+      this.y = Math.random() * height;
+      this.size = Math.random() * 2 + 1;
+      this.speedX = (Math.random() - 0.5) * 1.2;
+      this.speedY = (Math.random() - 0.5) * 1.2;
+      this.alpha = Math.random() * 0.5 + 0.3;
+      this.color = `rgba(0, 255, 255, ${this.alpha})`;
+      this.life = 0;
+      this.maxLife = 300 + Math.random() * 100;
+    }
+    update() {
+      this.x += this.speedX;
+      this.y += this.speedY;
+      this.life++;
+      if(this.life > this.maxLife) {
+        this.x = Math.random() * width;
+        this.y = Math.random() * height;
+        this.life = 0;
+      }
+    }
+    draw() {
+      ctx.beginPath();
+      ctx.fillStyle = this.color;
+      ctx.shadowColor = '#00ffff';
+      ctx.shadowBlur = 10;
+      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  }
+
+  function initParticles() {
+    particlesArray = [];
+    for(let i=0; i < 120; i++) {
+      particlesArray.push(new Particle());
+    }
+  }
+  initParticles();
+
+  function animateParticles() {
+    ctx.clearRect(0, 0, width, height);
+    particlesArray.forEach(p => {
+      p.update();
+      p.draw();
+    });
+    requestAnimationFrame(animateParticles);
+  }
+  animateParticles();
+</script>
 
 </body>
 </html>
