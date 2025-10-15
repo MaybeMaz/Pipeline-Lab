@@ -1,192 +1,153 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NEO Cyberpunk Hub</title>
-    <style>
-        /* Import Minecraft Enchantment Font (replace with actual font path) */
-        @font-face {
-            font-family: 'MinecraftEnchantment';
-            src: url('path/to/MinecraftEnchantment.ttf') format('truetype');
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CyberBlock Emporium</title>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <style>
+    /* Reset & Base */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-        /* General Reset with Global Enchantment Font */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'MinecraftEnchantment', sans-serif;
-        }
+    body {
+      font-family: 'Press Start 2P', cursive;
+      background-color: #0a0a0a;
+      color: #0ff;
+      background-image: radial-gradient(circle at top left, #111, #000);
+      overflow-x: hidden;
+    }
 
-        body {
-            background: url('https://example.com/cyberpunk-city.jpg') no-repeat center center fixed;
-            background-size: cover;
-            color: #e0e0e0;
-            overflow-x: hidden;
-        }
+    a {
+      color: #ff00ff;
+      text-decoration: none;
+    }
 
-        /* Neon Glow Effect */
-        .neon-text {
-            color: #00ffcc;
-            text-shadow: 
-                0 0 5px #00ffcc,
-                0 0 10px #00ffcc,
-                0 0 20px #ff00ff,
-                0 0 40px #ff00ff;
-        }
+    /* Enchanted Text Effect */
+    .enchanted {
+      background: linear-gradient(90deg, #0ff, #f0f, #0ff);
+      background-size: 200% 200%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: shimmer 3s linear infinite;
+    }
 
-        /* Enchantment Text Styling */
-        .enchant-text {
-            font-size: 1.5em;
-            color: #a100ff;
-            text-shadow: 0 0 10px #a100ff, 0 0 20px #a100ff;
-            letter-spacing: 2px;
-        }
+    @keyframes shimmer {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
 
-        /* Glitch Animation */
-        @keyframes glitch {
-            0% { transform: translate(0); }
-            20% { transform: translate(-2px, 2px); }
-            40% { transform: translate(-2px, -2px); }
-            60% { transform: translate(2px, 2px); }
-            80% { transform: translate(2px, -2px); }
-            100% { transform: translate(0); }
-        }
+    /* Cyberpunk Glow */
+    .glow {
+      text-shadow: 0 0 5px #0ff, 0 0 10px #0ff, 0 0 20px #0ff;
+    }
 
-        .glitch {
-            animation: glitch 0.5s infinite;
-        }
+    /* Layout */
+    header {
+      padding: 3rem 1rem;
+      text-align: center;
+      background-color: rgba(0, 255, 255, 0.05);
+      border-bottom: 2px solid #0ff;
+    }
 
-        /* Navigation Bar */
-        nav {
-            background: rgba(0, 0, 0, 0.8);
-            padding: 1rem;
-            position: fixed;
-            width: 100%;
-            z-index: 1000;
-        }
+    header h1 {
+      font-size: 2rem;
+    }
 
-        nav ul {
-            list-style: none;
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-        }
+    .hero {
+      padding: 2rem;
+      text-align: center;
+    }
 
-        nav a {
-            color: #00ffcc;
-            text-decoration: none;
-            font-size: 1.2em;
-            transition: color 0.3s;
-        }
+    .hero h2 {
+      font-size: 1.2rem;
+      color: #f0f;
+    }
 
-        nav a:hover {
-            color: #ff00ff;
-            text-shadow: 0 0 10px #ff00ff;
-        }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+      padding: 2rem;
+    }
 
-        /* Hero Section */
-        .hero {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            background: rgba(0, 0, 0, 0.5);
-        }
+    .block-card {
+      background-color: rgba(0, 0, 0, 0.6);
+      border: 2px solid #0ff;
+      border-radius: 10px;
+      padding: 1rem;
+      text-align: center;
+      box-shadow: 0 0 10px #0ff;
+      transition: transform 0.2s ease;
+    }
 
-        .hero h1 {
-            font-size: 4em;
-            margin-bottom: 1rem;
-        }
+    .block-card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 20px #f0f;
+    }
 
-        .hero p {
-            font-size: 1.5em;
-            max-width: 600px;
-        }
+    .block-card img {
+      width: 100px;
+      height: 100px;
+      image-rendering: pixelated;
+      margin-bottom: 1rem;
+    }
 
-        /* About Section */
-        .about {
-            padding: 4rem 2rem;
-            background: rgba(0, 0, 0, 0.7);
-            text-align: center;
-        }
-
-        .about h2 {
-            font-size: 2.5em;
-            margin-bottom: 1rem;
-        }
-
-        .about p {
-            max-width: 800px;
-            margin: 0 auto;
-            line-height: 1.6;
-        }
-
-        /* Footer */
-        footer {
-            background: rgba(0, 0, 0, 0.9);
-            padding: 1rem;
-            text-align: center;
-        }
-
-        footer p {
-            font-size: 1em;
-            color: #00ffcc;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.5em;
-            }
-
-            .hero p {
-                font-size: 1.2em;
-            }
-
-            nav ul {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .about h2 {
-                font-size: 2em;
-            }
-        }
-    </style>
+    .footer {
+      text-align: center;
+      padding: 1rem;
+      border-top: 1px solid #0ff;
+      background-color: rgba(0, 0, 0, 0.3);
+      margin-top: 2rem;
+      font-size: 0.8rem;
+    }
+  </style>
 </head>
 <body>
-    <!-- Navigation Bar -->
-    <nav>
-        <ul>
-            <li><a href="#home">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#contact">Contact</a></li>
-        </ul>
-    </nav>
 
-    <!-- Hero Section -->
-    <section class="hero" id="home">
-        <h1 class="neon-text glitch">NEO Cyberpunk Hub</h1>
-        <p class="enchant-text">Welcome to the Future of the Digital Realm</p>
-        <p>Explore the neon-lit streets of a dystopian world, powered by cutting-edge tech.</p>
-    </section>
+  <header>
+    <h1 class="enchanted glow">⚡ CYBERBLOCK EMPORIUM ⚡</h1>
+    <p class="enchanted">Selling the finest pixelated blocks in the NeonNet</p>
+  </header>
 
-    <!-- About Section -->
-    <section class="about" id="about">
-        <h2 class="neon-text">About the Hub</h2>
-        <p class="enchant-text">Encrypted Data Streams</p>
-        <p>
-            The NEO Cyberpunk Hub is your gateway to a futuristic digital universe. Dive into a world where technology and rebellion collide, with interfaces inspired by the raw energy of cyberpunk culture and the cryptic allure of Minecraft's enchantment script.
-        </p>
-    </section>
+  <section class="hero">
+    <h2 class="enchanted">✨ Enchanted Minecraft Blocks. Delivered in Glitched Style. ✨</h2>
+  </section>
 
-    <!-- Footer -->
-    <footer>
-        <p class="enchant-text">NEO Cyberpunk Hub &copy; 2025</p>
-    </footer>
+  <section class="grid">
+    <!-- Example Product Cards -->
+    <div class="block-card">
+      <img src="https://static.wikia.nocookie.net/minecraft_gamepedia/images/f/f0/Diamond_Block_JE4_BE3.png" alt="Diamond Block">
+      <p class="enchanted glow">Diamond Block</p>
+      <p>Price: 20Ξ</p>
+    </div>
+
+    <div class="block-card">
+      <img src="https://static.wikia.nocookie.net/minecraft_gamepedia/images/d/d1/Netherite_Block_JE1_BE1.png" alt="Netherite Block">
+      <p class="enchanted glow">Netherite Core</p>
+      <p>Price: 50Ξ</p>
+    </div>
+
+    <div class="block-card">
+      <img src="https://static.wikia.nocookie.net/minecraft_gamepedia/images/1/1b/Redstone_Block_JE3_BE2.png" alt="Redstone Block">
+      <p class="enchanted glow">Redstone Nexus</p>
+      <p>Price: 15Ξ</p>
+    </div>
+
+    <div class="block-card">
+      <img src="https://static.wikia.nocookie.net/minecraft_gamepedia/images/c/c4/Emerald_Block_JE3_BE2.png" alt="Emerald Block">
+      <p class="enchanted glow">Emerald Catalyst</p>
+      <p>Price: 18Ξ</p>
+    </div>
+  </section>
+
+  <footer class="footer enchanted">
+    ⛓️ CyberBlock Emporium © 2025 – All Rights Reserved in The End ⛓️
+  </footer>
+
 </body>
 </html>
